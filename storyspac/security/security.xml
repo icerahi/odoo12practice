@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+<!--    define category-->
+ <record model="ir.module.category" id="storyspac_module_category">
+     <field name="name">Storyspac Management</field>
+     <field name="description">Category for Storyspac</field>
+     <field name="sequence">45</field>
+ </record>
+
+<!--    create different group based on category -->
+    <record model="res.groups" id="doctor_group">
+        <field name="name">Doctor</field>
+        <field name="category_id" ref="storyspac_module_category"></field>
+    </record>
+
+    <record model="res.groups" id="manager_group">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="storyspac_module_category"/>
+        <field name="implied_ids" eval="[(4,ref('doctor_group'))]"/>
+    </record>
+
+<!--    create rule user group user -->
+    <record model="ir.rule" id="doctor_rule">
+        <field name="name">Doctor's Users list</field>
+        <field name="model_id" ref="model_storyspac_users"/>
+        <field name="domain_force">[('doctor_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('doctor_group'))]"/>
+    </record>
+<!--    rule for manager on storyspac user-->
+       <record model="ir.rule" id="manager_rule">
+        <field name="name"> Users list</field>
+        <field name="model_id" ref="model_storyspac_users"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4,ref('manager_group'))]"/>
+    </record>
+
+
+<!--    rule for storyspac_booking model as doctor -->
+        <record model="ir.rule" id="doctor_booking_rule">
+        <field name="name">Doctor's Users list</field>
+        <field name="model_id" ref="model_storyspac_booking"/>
+        <field name="domain_force">[('doctor_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4,ref('doctor_group'))]"/>
+
+    </record>
+
+<!--    rule for storyspac booking model as manager-->
+    <record model="ir.rule" id="manager_booking_rule">
+        <field name="name">Doctor's Booking List</field>
+        <field name="model_id" ref="model_storyspac_booking"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4,ref('manager_group'))]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+     <record id="practice_module_ticket_list" model="ir.ui.view">
+        <field name="name">Ticket List</field>
+        <field name="model">practice_module.ticket</field>
+         <field name="arch" type="xml">
+
+              <tree>
+                <field name="serial"/>
+                  <field name="name"/>
+                  <field name="age"/>
+                  <field name="age_group"/>
+            </tree>
+
+         </field>
+
+
+    </record>
+
+
+    <record id="practice_module_ticket_form" model="ir.ui.view">
+        <field name="name">Ticket form</field>
+        <field name="model">practice_module.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="serial"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="age"/>
+                        <field name="age_group"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Ticket Lines">
+                            <field name="ticket_lines">
+                                <tree editable="bottom">
+                                    <field name="seat_type"></field>
+                                    <field name="qty" sum="Total :"></field>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="seat_type"/>
+                                        </group>
+                                        <group>
+                                            <field name="qty"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="practice_module_ticket_action" model="ir.actions.act_window">
+        <field name="name">Ticket list</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">practice_module.ticket</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="ticket_menu" parent="practice_module.menu_root" name="Tickets" action="practice_module_ticket_action"></menuitem>
+</odoo>

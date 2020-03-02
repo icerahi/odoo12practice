@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+
+<odoo>
+
+    <data noupdate="1">
+        <record id="storyspac_user_data" model="storyspac_users">
+            <field name="name">data create testing</field>
+            <field name="age">12</field>
+            <field name="bio">testing biooooooooooooooooooooooooooo</field>
+            <field name="age_group">minor</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth">12/09/2000</field>
+         </record>
+    </data>
+
+
+
+    <data noupdate="1">
+        <record id="storyspac_booking_data" model="storyspac_booking">
+            <field name="user_id" ref="storyspac_user_data"/>
+            <field name="age" ref="storyspac_user_data"/>
+            <field name="date">12-12-2020</field>
+            <field name="note">testing noteeeeeeeeeee</field>
+            <field name="booking_info">gooooooooooood qualityyyyyyyy</field>
+            <field name="facalities">gooooooooooood qualityyhahahahahyyyyyy</field>
+
+         </record>
+    </data>
+
+
+</odoo>

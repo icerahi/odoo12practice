@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<odoo>
+
+<!--    adding new action as booking in the action button -->
+<record model="ir.actions.act_window" id="user_booking_action">
+    <field name="name">Booking</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">storyspac_booking</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="storyspac_booking_list"></field>
+    <field name="domain">[('user_id','=',active_id)]</field>
+    <field name="binding_model_id" ref="model_storyspac_users"></field>
+</record>
+
+<!--    action button  -->
+
+    <record model="ir.actions.act_window" id="open_user_booking">
+         <field name="name">Booking</field>
+        <field name="res_model">storyspac_booking</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id','=',active_id)]</field>
+    </record>
+
+<!-- inherit saleorderid -->
+     <record id="SaleOrderInherit_form" model="ir.ui.view">
+            <field name="name">SaleOrderInherit_Form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="demo_name"/>
+                </field>
+            </field>
+        </record>
+
+
+<!--    search view of storyspacusers -->
+    <record id="storyspacusers_search" model="ir.ui.view">
+            <field name="name">storyspac search</field>
+            <field name="model">storyspac_users</field>
+            <field name="arch" type="xml">
+                <search>
+                 <field name="name" filter_domain="['|',('name','ilike',self),('name_sec','ilike',self)]"/>
+                 <field name="name"/>
+                 <field name="name_sec"/>
+
+                <filter name="male" string="Male" domain="[('gender','=','male')]"/>
+                <filter name="female" string="Female" domain="[('gender','=','female')]"/>
+               <filter name="active" string="Active" domain="[('active','=',True)]"/>
+               <filter name="active" string="Deactive" domain="[('active','=',False)]"/>
+
+
+
+                <group string="Group By">
+                <filter name="gender" string="Gender" context="{'group_by':'gender'}"/>
+                </group>
+                </search>
+
+            </field>
+        </record>
+
+    <!-- form view of storyspacusers-->
+    <record id='storyspacusers_tree_view' model='ir.ui.view'>
+        <field name='name'>storyspacusers tree view </field>
+        <field name='model'>storyspac_users</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name="name_sec"/>
+                <field name='name'/>
+                <field name='age' sum="Total age: "/>
+                <field name='gender'/>
+                <field name='date_of_birth'/>
+                <field name='bio'/>
+                <field name='image'/>
+                <field name="age_group"/>
+                <field name="doctor_id"/>
+             </tree>
+        </field>
+    </record>
+
+
+    <!-- kanban view of storyspacusers -->
+    <record id='storyspacusers_kanban_view' model='ir.ui.view'>
+        <field name='name'>storyspacusers kanban view </field>
+        <field name='model'>storyspac_users</field>
+        <field name='arch' type='xml'>
+            <kanban>
+                <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_vignette oe_semantic_html_override oe_kanban_global_click">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <field name="image" widget="image" class="oe_avatar"/>
+                            </div>
+                            <div class="col-md-">
+                               Name : <strong><field name="name"></field></strong>
+                            </div>
+                            <div class="col-md-3">
+                                <span>ID : <field name="id" /> </span>
+                                 <small>Birth : <field name="date_of_birth" /> </small>
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+<!-- form view of storyspacusers-->
+<record id='storyspacusers_form_view' model='ir.ui.view'>
+    <field name='name'>storyspacusers form view </field>
+    <field name='model'>storyspac_users</field>
+    <field name='arch' type='xml'>
+        <form>
+             <header>
+                <button class="oe_highlight" string="Create Booking" context="{'default_user_id':active_id}" name="%(storyspac.create_booking_wizard)d" type="action"></button>
+            </header>
+        <sheet>
+
+            <div class="oe_button_box" name="button_box">
+            <!--button type object -->
+                <button class="oe_stat_button" type="object" name="open_user_booking" icon="fa-calendar">
+               <field name="booking_count" string="Booking" widget="statinfo"/>
+                </button>
+                 <!--button type object -->
+                <button class="oe_stat_button" type="action" name="%(open_user_booking)d" icon="fa-ticket">
+               <field name="booking_count" string="Booking" widget="statinfo"/>
+                </button>
+
+                <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                    <field name="active" widget="boolean_button" option="{&quot;archive&quot;"/>
+                </button>
+            </div>
+
+            <div class="oe_title">
+                <h4>
+                    <field name="name_sec" readonly="1"/>
+                </h4>
+            </div>
+
+            <field name="image" widget="image" class="oe_avatar"/>
+            <div class="oe_title" style="margin:13px;">
+                <h1>
+                    <field name='name' default_focus="1" option="&quot;" />
+                </h1>
+            </div>
+
+        <group>
+            <group>
+                <field name='age'/>
+                 <field name='bio'/>
+                 <field name="doctor_id" options="{'no_create_edit':True,'no_create':True,'no_open':True}"/>
+                <field name="doctor_gender"/>
+            </group>
+            <group>
+                 <field name='gender'/>
+                <field name='date_of_birth'/>
+            </group>
+
+            
+            <group>
+
+
+                 <field name='age_group'/>
+            </group>
+        </group>
+        </sheet>
+        <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread" option="{'post_refresh':'recipients'}"/>
+        </div>
+
+        </form>
+    </field>
+</record>
+
+
+
+<!-- storyspacusers actions view -->
+    <record id='storyspacusers_actions' model='ir.actions.act_window'>
+        <field name='type'>ir.actions.act_window</field>
+        <field name='name'>storyspac users</field>
+        <field name='res_model'>storyspac_users</field>
+        <field name='view_type'>form</field>
+        <field name='view_mode'>tree,form,pivot,graph</field>
+<!--  default search filter -->
+<!--    <field name="context">{"search_default_":1}</field>-->
+        <field name='help' type='html'>
+            <p class='o_view_nocontent_smiling_face'>
+            Please Create a new one !</p>
+        </field>
+    </record>
+    <menuitem id='storyspac_root' name='Storyspac' />
+    <menuitem id='storyspac_user_list' name='Users' parent='storyspac_root' sequence="0" action='storyspacusers_actions'/>
+</odoo>

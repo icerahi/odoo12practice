@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<odoo>
+
+
+    <!-- form view of storyspac_doctor-->
+    <record id='storyspacdoctor_tree_view' model='ir.ui.view'>
+        <field name='name'>storyspac_doctor tree view </field>
+        <field name='model'>storyspac_doctor</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name="name"/>
+                <field name='gender'/>
+                <field name='user_id'/>
+
+            </tree>
+        </field>
+    </record>
+
+
+
+<!-- form view of storyspacusers-->
+<record id='storyspacdoctor_form_view' model='ir.ui.view'>
+    <field name='name'>storyspacdoctor form view </field>
+    <field name='model'>storyspac_doctor</field>
+    <field name='arch' type='xml'>
+        <form>
+        <sheet>
+
+
+        <group>
+            <group>
+
+             <field name='name' default_focus="1" option="&quot;" />
+
+                <field name='gender'/>
+                <field name="user_id"/>
+
+            </group>
+
+
+
+
+        </group>
+        </sheet>
+
+
+        </form>
+    </field>
+</record>
+
+
+
+<!-- storyspacusers actions view -->
+    <record id='storyspacdoctor_actions' model='ir.actions.act_window'>
+        <field name='type'>ir.actions.act_window</field>
+        <field name='name'>storyspac doctor</field>
+        <field name='res_model'>storyspac_doctor</field>
+        <field name='view_type'>form</field>
+        <field name='view_mode'>tree,form,pivot,graph</field>
+<!--  default search filter -->
+<!--    <field name="context">{"search_default_":1}</field>-->
+        <field name='help' type='html'>
+            <p class='o_view_nocontent_smiling_face'>
+            Please Create a new one !</p>
+        </field>
+    </record>
+
+    <menuitem id='storyspac_doctor_list' name='Doctors' parent='storyspac_root' action='storyspacdoctor_actions'/>
+</odoo>

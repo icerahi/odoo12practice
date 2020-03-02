@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_practice_module_practice_module,practice_module.practice_module,model_practice_module_practice_module,,1,1,1,1
+access_practice_module.ticket,practice_module.ticket,model_practice_module_ticket,,1,1,1,1
+access_ticket.lines,ticket_lines,model_ticket_lines,,1,1,1,1

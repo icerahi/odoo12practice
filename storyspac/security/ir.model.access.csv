@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_storyspac_booking,storyspac_booking,model_storyspac_booking,,1,1,1,1
+access_storyspac_doctor,storyspac_doctor,model_storyspac_doctor,,1,1,1,1
+access_storyspac_users,storyspac_users,model_storyspac_users,,1,1,1,1
+access_storyspac_booking.lines,storyspac_booking.lines,model_storyspac_booking_lines,,1,1,1,1

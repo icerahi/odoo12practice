@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!-- storyspac booking tree view -->
+    <record id="storyspac_booking_list" model="ir.ui.view">
+        <field name="name">Storyspac Booking List</field>
+        <field name="model">storyspac_booking</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="serial"></field>
+                <field name="user_id"></field>
+                <field name="doctor_id"></field>
+                <field name="age"></field>
+                <field name="date"></field>
+                <field name="note"></field>
+                <field name='state'/>
+            </tree>
+        </field>
+    </record>
+
+
+<!-- storyspac booking form   -->
+    <record id="storyspac_booking_form" model="ir.ui.view">
+        <field name="name">Storyspac Booking</field>
+        <field name="model">storyspac_booking</field>
+        <field name="arch" type="xml">
+            <form name="Storyspac Booking Form">
+
+             <header>
+                <button name="confirm_button" type="object" states="draft" class="oe_highlight" string="Confirm"></button>
+                <button name="done_button" type="object" states="confirm"  class="oe_highlight" string="Done"/>
+                <button name="cancel_button" type="object" states="confirm" class="oe_highlight" string="Cancel"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
+            </header>
+
+                <sheet>
+                    <div class="eo_title">
+                        <h1><field name="serial"/> </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="doctor_id"/>
+                            <field name="age"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                          <field name="note"/>
+                            <field name='state'/>
+                        </group>
+                    </group>
+
+
+                <notebook>
+                    <page string="Booking Lines">
+
+                        <field name="booking_lines">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="product_qty"/>
+                                <field name="booking_id" invisible="1"/>
+                            </tree>
+
+<!--                            #after clicking on line-->
+                            <form>
+                                <group>
+                                    <group>
+                                        <field name="product_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="product_qty"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+
+                    <page string="Facalities">
+                        <field name="facalities"/>
+                    </page>
+                </notebook>
+
+                </sheet>
+
+        <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread" option="{'post_refresh':'recipients'}"/>
+        </div>
+
+            </form>
+        </field>
+    </record>
+
+      <record id='storyspac_booking_action' model='ir.actions.act_window'>
+        <field name='type'>ir.actions.act_window</field>
+        <field name='name'>Storyspac Booking</field>
+        <field name='res_model'>storyspac_booking</field>
+        <field name='view_type'>form</field>
+        <field name='view_mode'>tree,form</field>
+
+        <field name='help' type='html'>
+            <p class='oe_view_nocontent_smiling_face'>
+            Please Create a new one !</p>
+        </field>
+    </record>
+
+<!-- storyspac booking search view filter   -->
+    <record id="storyspac_booking_search" model="ir.ui.view">
+        <field name="name">Storyspac Booking Search</field>
+        <field name="model">storyspac_booking</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id" string="Name and Serial" filter_domain="['|',('user_id','ilike',self),('serial','ilike',self)]"/>
+                <field name="serial"/>
+                <field name="user_id"/>
+
+                <group string="Group By">
+                    <filter name="User Name" context="{'group_by':'user_id'}"/>
+                </group>
+            </search>
+        </field>
+
+    </record>
+    <menuitem id="storyspac_booking_menu" parent="storyspac_root" name="Booking" action="storyspac_booking_action"></menuitem>
+</odoo>
