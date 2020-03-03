@@ -8,7 +8,6 @@
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">storyspac_booking</field>
     <field name="view_mode">tree,form</field>
-    <field name="view_id" ref="storyspac_booking_list"></field>
     <field name="domain">[('user_id','=',active_id)]</field>
     <field name="binding_model_id" ref="model_storyspac_users"></field>
 </record>
@@ -197,4 +196,6 @@
     </record>
     <menuitem id='storyspac_root' name='Storyspac' />
     <menuitem id='storyspac_user_list' name='Users' parent='storyspac_root' sequence="0" action='storyspacusers_actions'/>
+    <menuitem id="create_booking_menu" parent="storyspac_root" sequence="4" name="Create Booking" action="create_booking_wizard"></menuitem>
+
 </odoo>

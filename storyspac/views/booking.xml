@@ -123,5 +123,5 @@
         </field>
 
     </record>
-    <menuitem id="storyspac_booking_menu" parent="storyspac_root" name="Booking" action="storyspac_booking_action"></menuitem>
+    <menuitem id="storyspac_booking_menu" sequence="1" parent="storyspac_root" name="Booking" action="storyspac_booking_action"></menuitem>
 </odoo>

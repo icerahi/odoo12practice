@@ -66,5 +66,5 @@
         </field>
     </record>
 
-    <menuitem id='storyspac_doctor_list' name='Doctors' parent='storyspac_root' action='storyspacdoctor_actions'/>
+    <menuitem id='storyspac_doctor_list' sequence="2" name='Doctors' parent='storyspac_root' action='storyspacdoctor_actions'/>
 </odoo>

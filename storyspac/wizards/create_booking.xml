@@ -28,5 +28,4 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="create_booking_menu" parent="storyspac_root" name="Create Booking" action="create_booking_wizard"></menuitem>
 </odoo>
