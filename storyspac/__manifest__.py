@@ -17,6 +17,7 @@
         'base',
         'mail',
         'sale',
+        'report_xlsx',
 
       
     ],
@@ -30,8 +31,6 @@
         'views/user.xml',
         'views/booking.xml',
         'views/doctor.xml',
-
-
     ],
     'license': "",
     'installable': True,
