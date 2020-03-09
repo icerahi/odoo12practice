@@ -17,11 +17,13 @@
         'base',
         'mail',
         'sale',
+
       
     ],
     'data': [
         'security/security.xml',
         'data/data.xml', # loading default data
+        'data/mail_template.xml', # email template
         'security/ir.model.access.csv',
         'data/sequence.xml',
         'wizards/create_booking.xml',

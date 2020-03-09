@@ -75,6 +75,7 @@
                 <field name='image'/>
                 <field name="age_group"/>
                 <field name="doctor_id"/>
+                <field name="email"/>
              </tree>
         </field>
     </record>
@@ -116,8 +117,10 @@
     <field name='arch' type='xml'>
         <form>
              <header>
+<!--                 using context to get initial default id-->
                 <button class="oe_highlight" string="Create Booking" context="{'default_user_id':active_id}" name="%(storyspac.create_booking_wizard)d" type="action"></button>
-            </header>
+                <button class="oe_highlight" string="Send By Email" type="object" name="send_user_card" groups="storyspac.manager_group"></button>
+             </header>
         <sheet>
 
             <div class="oe_button_box" name="button_box">
@@ -162,8 +165,8 @@
 
             
             <group>
-
-
+                <field name="user_id"/>
+                <field name="email" widget="email" groups="storyspac.manager_group"/>
                  <field name='age_group'/>
             </group>
         </group>

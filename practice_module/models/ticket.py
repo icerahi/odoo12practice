@@ -15,6 +15,25 @@ class Ticket(models.Model):
     age_group = fields.Selection([('boro','Boro'),('choto','Choto'),('buro','Buro')],compute='set_age_group')
 
     ticket_lines = fields.One2many('ticket.lines','ticket_id',string='Ticket Lines')
+
+    def change_to_bdt(self):
+        # bdt_format = "[3,2,2,3,4]"
+        # get_model = self.env['res.lang'].search([('iso_code', '=', 'en')])
+        # get_model.grouping=bdt_format
+        # print(get_model.grouping)
+
+        return {
+            'type':'ir.actions.client',
+            'tag':'reload',
+        }
+
+    def change_to_usd(self):
+        format = "[3,0]"
+        get_model = self.env['res.lang'].search([('iso_code', '=', 'en')])
+        get_model.grouping = format
+        print(get_model.grouping)
+
+
     @api.constrains('age')
     def check_age(self):
         for f in self:
@@ -48,3 +67,9 @@ class TicketLines(models.Model):
     seat_type = fields.Selection([('sovon','Sovon'),('s_char','S_Chair'),('ac','AC')],string='Seat Type')
     qty = fields.Integer(string='Quantity')
     ticket_id = fields.Many2one('practice_module.ticket',string='Ticket ID')
+
+    currency = fields.Many2one('res.currency',string='Currency')
+    price = fields.Monetary(string='ticket price',currency_field='currency')
+
+
+

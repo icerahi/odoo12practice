@@ -26,7 +26,8 @@
         <field name="model_id" ref="model_storyspac_users"/>
         <field name="domain_force">[('doctor_id.user_id','=',user.id)]</field>
         <field name="groups" eval="[(4,ref('doctor_group'))]"/>
-    </record>
+     </record>
+
 <!--    rule for manager on storyspac user-->
        <record model="ir.rule" id="manager_rule">
         <field name="name"> Users list</field>
@@ -42,6 +43,7 @@
         <field name="model_id" ref="model_storyspac_booking"/>
         <field name="domain_force">[('doctor_id.user_id','=',user.id)]</field>
         <field name="groups" eval="[(4,ref('doctor_group'))]"/>
+
 
     </record>
 

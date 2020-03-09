@@ -49,6 +49,17 @@ class StoryspacUsers(models.Model):
     booking_count = fields.Integer(string='Booking',compute='get_booking_count')
     doctor_id = fields.Many2one('storyspac_doctor',string='Doctor')
     doctor_gender = fields.Selection([('male','Male'),('female','Female')],string='Doctor Gender')
+    email = fields.Char(string='Email')
+    user_id = fields.Many2one('res.users',string='PRO')
+
+
+    def send_user_card(self):
+        # sending mail
+        #optimizing code self.env.ref('storyspac.user_card_email_template').send_mail(self.id,force_send=True)
+
+        template_id = self.env.ref('storyspac.user_card_email_template').id
+        template = self.env['mail.template'].browse(template_id)
+        template.send_mail(self.id, force_send=True)
 
     #display many2one field text customly with name and age
     def name_get(self):
@@ -71,9 +82,8 @@ class StoryspacUsers(models.Model):
     @api.multi
     def open_user_booking(self):
         users=self.env['res.users'].search([('active','=',True)])
-        users=[user.id for user in users]
-        print(users)
-
+        # users=[user.id for user in users]
+        # print(users)
         return {
             'name': 'User Booking',
             'res_model': 'storyspac_booking',
@@ -82,7 +92,6 @@ class StoryspacUsers(models.Model):
             'view_mode': 'tree,form',
             'type': 'ir.actions.act_window',
         }
-
     @api.model
     def create(self, vals):
         if vals.get('name_sec',_('New'))==('New'):
